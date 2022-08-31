@@ -117,14 +117,14 @@ def get_progress_bar_string(status):
     p = 0 if total == 0 else round(completed * 100 / total)
     p = min(max(p, 0), 100)
     cFull = p // 8
-    p_str = '⬢' * cFull
-    p_str += '⬡' * (12 - cFull)
+    p_str = '▰' * cFull
+    p_str += '▱' * (12 - cFull)
     p_str = f"[{p_str}]"
     return p_str
 
 def progress_bar(percentage):
-    p_used = '⬢'
-    p_total = '⬡'
+    p_used = '▰'
+    p_total = '▱'
     if isinstance(percentage, str):
         return '-'
     try:
@@ -160,14 +160,10 @@ RAM: {progress_bar(mem_p)} {mem_p}%
 DISK: {progress_bar(disk)} {disk}%
 T: {disk_t} | F: {disk_f}
 
-Working For: {currentTime}
+UPTIME: {currentTime}
 T-DL: {recv} | T-UL: {sent}
 
-Made with ❤️ by Dawn
 """
-
-#---Thanks for deleting my name ❤️ Appreciate it---#
-#---Remove this line too, who cares---#
 
 dispatcher.add_handler(CallbackQueryHandler(pop_up_stats, pattern=f"^{str(THREE)}$"))
 
@@ -214,7 +210,9 @@ def get_readable_message():
                 msg += f" | <b>Uploaded: </b>{download.uploaded_bytes()}"
                 msg += f"\n<b>Ratio: </b>{download.ratio()}"
                 msg += f" | <b>Time: </b>{download.seeding_time()}"
-            msg += f"\n<b>To Cancel:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+            msg += f"\n<b>⏳ 𝗘𝗹𝗮𝗽𝘀𝗲𝗱: </b>{get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f'\n<b>💀 𝐔𝐬𝐞𝐫 :</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
+            msg += f"\n<code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             msg += f"\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
@@ -319,6 +317,31 @@ def get_mega_link_type(url: str):
 def is_magnet(url: str):
     magnet = re_findall(MAGNET_REGEX, url)
     return bool(magnet)
+
+def is_gdtot_link(url: str):
+    url = re_match(r'https?://.+\.gdtot\.\S+', url)
+    return bool(url)
+
+def is_unified_link(url: str):
+    url1 = re_match(r'https?://(anidrive|driveroot|driveflix|indidrive|drivehub)\.in/\S+', url)
+    url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro)\.\S+', url)
+    if bool(url1) == True:
+        return bool(url1)
+    elif bool(url) == True:
+        return bool(url)
+    else:
+        return False
+
+def is_udrive_link(url: str):
+    if 'drivehub.ws' in url:
+        return 'drivehub.ws' in url
+    else:
+        url = re_match(r'https?://(hubdrive|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
+        return bool(url)
+    
+def is_sharer_link(url: str):
+    url = re_match(r'https?://(sharer)\.pw/\S+', url)
+    return bool(url)
 
 def new_thread(fn):
     """To use as decorator to make a function call threaded.
