@@ -494,5 +494,3 @@ bot = updater.bot
 dispatcher = updater.dispatcher
 job_queue = updater.job_queue
 botname = bot.username
-
-LEECH_LOG.add(AUTHORIZED_CHATS)
