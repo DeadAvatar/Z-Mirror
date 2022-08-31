@@ -458,47 +458,17 @@ try:
 except:
     CRYPT = None
 try:
-    XSRF_TOKEN = getConfig("XSRF_TOKEN")
-    if len(XSRF_TOKEN) == 0:
+    APPDRIVE_EMAIL = getConfig("APPDRIVE_EMAIL")
+    if len(APPDRIVE_EMAIL) == 0:
         raise KeyError
 except:
-    XSRF_TOKEN = None
+    APPDRIVE_EMAIL = None
 try:
-    laravel_session = getConfig("laravel_session")
-    if len(laravel_session) == 0:
+    APPDRIVE_PASS = getConfig("APPDRIVE_PASS")
+    if len(APPDRIVE_PASS) == 0:
         raise KeyError
 except:
-    laravel_session = None
-try:
-    UNIFIED_EMAIL = getConfig("UNIFIED_EMAIL")
-    if len(UNIFIED_EMAIL) == 0:
-        raise KeyError
-except:
-    UNIFIED_EMAIL = None
-try:
-    UNIFIED_PASS = getConfig("UNIFIED_PASS")
-    if len(UNIFIED_PASS) == 0:
-        raise KeyError
-except:
-    UNIFIED_PASS = None
-try:
-    HUBDRIVE_CRYPT = getConfig("HUBDRIVE_CRYPT")
-    if len(HUBDRIVE_CRYPT) == 0:
-        raise KeyError
-except:
-    HUBDRIVE_CRYPT = None
-try:
-    KATDRIVE_CRYPT = getConfig("KATDRIVE_CRYPT")
-    if len(KATDRIVE_CRYPT) == 0:
-        raise KeyError
-except:
-    KATDRIVE_CRYPT = None
-try:
-    DRIVEFIRE_CRYPT = getConfig("DRIVEFIRE_CRYPT")
-    if len(DRIVEFIRE_CRYPT) == 0:
-        raise KeyError
-except:
-    DRIVEFIRE_CRYPT = None
+    APPDRIVE_PASS = None
 
 updater = tgUpdater(token=BOT_TOKEN, request_kwargs={'read_timeout': 20, 'connect_timeout': 15})
 bot = updater.bot
