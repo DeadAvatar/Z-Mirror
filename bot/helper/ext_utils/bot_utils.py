@@ -196,8 +196,8 @@ def get_readable_message():
                     msg += f"\n<b>Extracted:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
                 elif download.status() == MirrorStatus.STATUS_SPLITTING:
                     msg += f"\n<b>Splitted:</b> <code>{get_readable_file_size(download.processed_bytes())}</code> of <code>{download.size()}</code>"
-                msg += f"\n<b>ETA:</b> <code>{download.eta()}</code> <b>Elapsed:</b> <code>{get_readable_time(time() - download.message.date.timestamp())}</code>"
-                msg += f'\n<b>Speed:</b> <code>{download.speed()}</code> <b>Task By:</b> <a href="https://t.me/c/{str(download.message.chat.id)[4:]}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
+                msg += f"\n<b>ETA:</b> <code>{download.eta()}</code> | <b>Elapsed:</b> <code>{get_readable_time(time() - download.message.date.timestamp())}</code>"
+                msg += f'\n<b>Speed:</b> <code>{download.speed()}</code>'
                 if hasattr(download, 'seeders_num'):
                     try:
                         msg += f"\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
@@ -210,7 +210,6 @@ def get_readable_message():
                 msg += f" | <b>Uploaded: </b>{download.uploaded_bytes()}"
                 msg += f"\n<b>Ratio: </b>{download.ratio()}"
                 msg += f" | <b>Time: </b>{download.seeding_time()}"
-            msg += f"\n<b>⏳ 𝗘𝗹𝗮𝗽𝘀𝗲𝗱: </b>{get_readable_time(time() - download.message.date.timestamp())}"
             msg += f'\n<b>💀 𝐔𝐬𝐞𝐫 :</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
             msg += f"\n<code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             msg += f"\n"
