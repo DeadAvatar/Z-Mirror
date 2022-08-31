@@ -242,7 +242,7 @@ def get_readable_message():
         bmsg += f"\n<b>FREE:</b> <code>{get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}</code><b> | UPTM:</b> <code>{get_readable_time(time() - botStartTime)}</code>"
         bmsg += f"\n<b>DL:</b> <code>{get_readable_file_size(dl_speed)}/s</code><b> | UL:</b> <code>{get_readable_file_size(up_speed)}/s</code>"
         buttons = ButtonMaker()
-        buttons.sbutton("Bot SYS Statistics", str(THREE))
+        buttons.sbutton("STATS", str(THREE))
         button = buttons.build_menu(1)
         if STATUS_LIMIT is not None and tasks > STATUS_LIMIT:
             msg += f"\n<b>Total Tasks:</b> {tasks}\n"
