@@ -13,7 +13,7 @@ from .helper.telegram_helper.bot_commands import BotCommands
 from .helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
 from .helper.telegram_helper.filters import CustomFilters
 from .helper.telegram_helper.button_build import ButtonMaker
-from .modules import authorize, list, cancel_mirror, mirror_status, mirror_leech, clone, ytdlp, shell, eval, delete, count, leech_settings, search, rss, bt_select, sleep
+from .modules import authorize, cancel_mirror, mirror_status, mirror_leech, ytdlp, shell, eval, leech_settings, bt_select, sleep
 
 def progress_bar(percentage):
     p_used = '⬢'
@@ -48,7 +48,7 @@ def stats(update, context):
             f'<b>RAM</b>: {progress_bar(mem_p)} {mem_p}%\n' \
             f'<b>DISK</b>: {progress_bar(disk)} {disk}%\n\n' \
             f'<b>Updated:</b> {last_commit}\n'\
-            f'<b>I am Working For:</b> <code>{currentTime}</code>\n\n'\
+            f'<b>Uptime:</b> <code>{currentTime}</code>\n\n'\
             f'<b>Total Disk:</b> <code>{total}</code> [{disk}% In use]\n'\
             f'<b>Used:</b> <code>{used}</code> | <b>Free:</b> <code>{free}</code>\n'\
             f'<b>T-UL:</b> <code>{sent}</code> | <b>T-DL:</b> <code>{recv}</code>\n'
@@ -56,10 +56,7 @@ def stats(update, context):
 
 def start(update, context):
     buttons = ButtonMaker()
-    buttons.buildbutton("Report Group", "https://t.me/Mltb_chat_unofficial")
-    buttons.buildbutton("Repo", "https://github.com/Dawn-India/Z-Mirror")
-    buttons.buildbutton("Mirror Group", "https://t.me/z_mirror")
-    buttons.buildbutton("Owner", "https://t.me/z_mirror")
+    buttons.buildbutton("PublicLeechCloneGroup", "https://t.me/PublicLeechCloneGroup")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f'''
@@ -98,22 +95,6 @@ def log(update, context):
 help_string = f'''
 NOTE: Try each command without any perfix to see more detalis.
 
-/{BotCommands.MirrorCommand[0]} or /{BotCommands.MirrorCommand[1]}: Start mirroring to Google Drive.
-
-/{BotCommands.ZipMirrorCommand[0]} or /{BotCommands.ZipMirrorCommand[1]}: Start mirroring and upload the file/folder compressed with zip extension.
-
-/{BotCommands.UnzipMirrorCommand[0]} or /{BotCommands.UnzipMirrorCommand[1]}: Start mirroring and upload the file/folder extracted from any archive extension.
-
-/{BotCommands.QbMirrorCommand[0]} or /{BotCommands.QbMirrorCommand[1]}: Start Mirroring to Google Drive using qBittorrent.
-
-/{BotCommands.QbZipMirrorCommand[0]} or /{BotCommands.QbZipMirrorCommand[1]}: Start mirroring using qBittorrent and upload the file/folder compressed with zip extension.
-
-/{BotCommands.QbUnzipMirrorCommand[0]} or /{BotCommands.QbUnzipMirrorCommand[1]}: Start mirroring using qBittorrent and upload the file/folder extracted from any archive extension.
-
-/{BotCommands.YtdlCommand[0]} or /{BotCommands.YtdlCommand[1]}: Mirror yt-dlp supported link.
-
-/{BotCommands.YtdlZipCommand[0]} or /{BotCommands.YtdlZipCommand[1]}: Mirror yt-dlp supported link as zip.
-
 /{BotCommands.LeechCommand[0]} or /{BotCommands.LeechCommand[1]}: Start leeching to Telegram.
 
 /{BotCommands.ZipLeechCommand[0]} or /{BotCommands.ZipLeechCommand[1]}: Start leeching and upload the file/folder compressed with zip extension.
@@ -130,65 +111,18 @@ NOTE: Try each command without any perfix to see more detalis.
 
 /{BotCommands.YtdlZipLeechCommand[0]} or /{BotCommands.YtdlZipLeechCommand[1]}: Leech yt-dlp supported link as zip.
 
-/{BotCommands.CloneCommand} [drive_url]: Copy file/folder to Google Drive.
-
-/{BotCommands.CountCommand} [drive_url]: Count file/folder of Google Drive.
-
-/{BotCommands.DeleteCommand} [drive_url]: Delete file/folder from Google Drive (Only Owner & Sudo).
-
 /{BotCommands.LeechSetCommand} [query]: Leech settings.
 
 /{BotCommands.SetThumbCommand}: Reply photo to set it as Thumbnail.
 
 /{BotCommands.BtSelectCommand}: Select files from torrents by gid or reply.
 
-/{BotCommands.RssListCommand[0]} or /{BotCommands.RssListCommand[1]}: List all subscribed rss feed info (Only Owner & Sudo).
-
-/{BotCommands.RssGetCommand[0]} or /{BotCommands.RssGetCommand[1]}: Force fetch last N links (Only Owner & Sudo).
-
-/{BotCommands.RssSubCommand[0]} or /{BotCommands.RssSubCommand[1]}: Subscribe new rss feed (Only Owner & Sudo).
-
-/{BotCommands.RssUnSubCommand[0]} or /{BotCommands.RssUnSubCommand[1]}: Unubscribe rss feed by title (Only Owner & Sudo).
-
-/{BotCommands.RssSettingsCommand[0]} or /{BotCommands.RssSettingsCommand[1]} [query]: Rss Settings (Only Owner & Sudo).
-
 /{BotCommands.CancelMirror}: Cancel task by gid or reply.
-
-/{BotCommands.CancelAllCommand} [query]: Cancel all [status] tasks.
-
-/{BotCommands.ListCommand} [query]: Search in Google Drive(s).
-
-/{BotCommands.SearchCommand} [query]: Search for torrents with API.
 
 /{BotCommands.StatusCommand}: Shows a status of all the downloads.
 
 /{BotCommands.StatsCommand}: Show stats of the machine where the bot is hosted in.
 
-/{BotCommands.PingCommand}: Check how long it takes to Ping the Bot (Only Owner & Sudo).
-
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Only Owner & Sudo).
-
-/{BotCommands.UnAuthorizeCommand}: Unauthorize a chat or a user to use the bot (Only Owner & Sudo).
-
-/{BotCommands.AuthorizedUsersCommand}: Show authorized users (Only Owner & Sudo).
-
-/{BotCommands.AddSudoCommand}: Add sudo user (Only Owner).
-
-/{BotCommands.RmSudoCommand}: Remove sudo users (Only Owner).
-
-/{BotCommands.RestartCommand}: Restart and update the bot (Only Owner & Sudo).
-
-/{BotCommands.SleepCommand}: idle the bot (Only Owner & Sudo).
-
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports (Only Owner & Sudo).
-
-/{BotCommands.ShellCommand}: Run shell commands (Only Owner).
-
-/{BotCommands.EvalCommand}: Run Python Code Line | Lines (Only Owner).
-
-/{BotCommands.ExecCommand}: Run Commands In Exec (Only Owner).
-
-/{BotCommands.ClearLocalsCommand}: Clear {BotCommands.EvalCommand} or {BotCommands.ExecCommand} locals (Only Owner).
 '''
 
 def bot_help(update, context):
