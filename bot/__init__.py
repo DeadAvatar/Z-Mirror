@@ -116,6 +116,7 @@ AUTHORIZED_CHATS = set()
 SUDO_USERS = set()
 AS_DOC_USERS = set()
 AS_MEDIA_USERS = set()
+LEECH_LOG = set()
 EXTENSION_FILTER = set(['.aria2'])
 
 try:
@@ -153,6 +154,13 @@ try:
         fx = fx.split()
         for x in fx:
             EXTENSION_FILTER.add(x.strip().lower())
+except:
+    pass
+try:
+    aid = getConfig('LEECH_LOG')
+    aid = aid.split(' ')
+    for _id in aid:
+        LEECH_LOG.add(int(_id))
 except:
     pass
 
@@ -476,7 +484,11 @@ try:
         raise KeyError
 except:
     APPDRIVE_PASS = None
-
+try:
+    BOT_PM = getConfig('BOT_PM')
+    BOT_PM = BOT_PM.lower() == 'true'
+except:
+    BOT_PM = False
 updater = tgUpdater(token=BOT_TOKEN, request_kwargs={'read_timeout': 20, 'connect_timeout': 15})
 bot = updater.bot
 dispatcher = updater.dispatcher
